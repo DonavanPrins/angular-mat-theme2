@@ -1,0 +1,36 @@
+<div
+  *subscribe="isLightTheme$; let isLightTheme"
+  [ngClass]="{ 'light-theme': isLightTheme }"
+>
+  <ng-container>
+    <app-header></app-header>
+    <mat-sidenav-container
+      #sidenavContainer
+      class="sidenav-container overflow-hidden"
+      *subscribe="shouldOpenSideNav$; let isSideNavOpen"
+    >
+      <mat-sidenav
+        class="mat-elevation-z8"
+        [fixedInViewport]="false"
+        [fixedTopGap]="60"
+        [fixedBottomGap]="60"
+        mode="side"
+        opened="{{ isSideNavOpen }}"
+      >
+        <app-sidebar></app-sidebar>
+      </mat-sidenav>
+
+      <mat-sidenav-content
+        #sidenavContent
+        *subscribe="isSideNavExpanded$; let isSideNavExpanded"
+        [@onMainContentChange]="mainContentAnimation$ | async"
+        [ngClass]="isSideNavOpen ? 'margin-left' : 'no-margin-left'"
+      >
+        <div class="main_content">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    <app-footer></app-footer>
+  </ng-container>
+</div>

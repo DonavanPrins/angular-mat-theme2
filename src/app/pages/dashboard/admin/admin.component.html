@@ -1,0 +1,113 @@
+<div class="grid-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <font class="">Grid 1</font>
+        <button
+          mat-icon-button
+          class="card-menu"
+          [matMenuTriggerFor]="menu"
+          aria-label="Toggle menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item>Expand</button>
+          <button mat-menu-item>Remove</button>
+        </mat-menu>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <form *ngIf="form" [formGroup]="form">
+            <mat-form-field class="mt-1 mr-5" appearance="standard">
+              <mat-label>Mat Text Box</mat-label>
+              <input
+                matInput
+                type="number"
+                cdkFocusInitial
+                formControlName="matTextBox"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Mat Select </mat-label>
+              <mat-select formControlName="matSelect" required>
+                <mat-option [value]="'1'"> 1 </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span class="spacer"></span>
+            <button
+              type="button"
+              mat-flat-button
+              color="accent"
+              [matTooltip]="'Add Mat Card'"
+            >
+              Add Mat Card
+            </button>
+            <span class="spacer"></span>
+            <button
+              type="submit"
+              [disabled]="form.invalid"
+              mat-flat-button
+              color="primary"
+              [matTooltip]="'Submit'"
+            >
+              Submit
+            </button>
+            <div
+              fxLayoutGap="10px grid"
+              fxLayout="row wrap"
+              fxLayoutAlign="start start"
+            ></div>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <font class="">Title</font>
+        <button
+          mat-icon-button
+          class="card-menu"
+          [matMenuTriggerFor]="menu"
+          aria-label="Toggle menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item>Expand</button>
+          <button mat-menu-item>Remove</button>
+        </mat-menu>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          style="height: 500px"
+        ></div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-table [dataSource]="tableData">
+    <ng-container matColumnDef="col1">
+      <mat-header-cell *matHeaderCellDef>col1</mat-header-cell>
+      <mat-cell *matCellDef="let obj">{{ obj.col1 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="col2">
+      <mat-header-cell *matHeaderCellDef>col2</mat-header-cell>
+      <mat-cell *matCellDef="let obj">{{ obj.col2 }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row matRipple *matRowDef="let obj; columns: columns"></mat-row>
+  </mat-table>
+</div>

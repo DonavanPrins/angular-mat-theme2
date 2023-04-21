@@ -1,0 +1,85 @@
+<div
+  *subscribe="vm$; let vm"
+  class="sidenav_container"
+  [@onSideNavChange]="vm.isSideNavExpanded ? 'open' : 'close'"
+>
+  <div style="height: 100%">
+    <div class="user-details">
+      <mat-nav-list>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <div>
+            <a>
+              <img
+                [@resizeAvatarOnSideNavCollapseExpand]="
+                  vm.isSideNavExpanded ? 'big' : 'small'
+                "
+                class=""
+                src="../../../../assets/img/default-avatar.png"
+                alt=""
+              />
+            </a>
+          </div>
+          <div *ngIf="vm.showNavItemTitle">
+            <a href="#">
+              <div fxLayout="column" fxLayoutAlign="end start">
+                <div>
+                  <b class="user-name">John Doe</b>
+                </div>
+                <div class="role-select-container">
+                  <ng-container>
+                    <div>
+                      <font class="mat-caption">Admin</font>
+                    </div>
+                  </ng-container>
+
+                  <ng-container>
+                    <mat-form-field appearance="standard" class="role-select">
+                      <mat-select
+                        matTooltip="Select Role"
+                        [value]="'admin'"
+                        panelClass="role-select-panel"
+                      >
+                        <mat-option [value]="'admin'">Admin</mat-option>
+                        <mat-option [value]="'user'">user</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </ng-container>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </mat-nav-list>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <mat-nav-list>
+        <mat-nav-list>
+          <ng-container *ngFor="let item of vm.sideNavMenus">
+            <ng-container *ngIf="item">
+              <app-menu-list-item
+                [item]="item"
+                [showNavItemTitle]="vm.showNavItemTitle"
+                [matTooltip]="collapse === false ? item.displayName : ''"
+              >
+              </app-menu-list-item>
+            </ng-container>
+          </ng-container>
+        </mat-nav-list>
+      </mat-nav-list>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+  <div fxLayout="row" fxLayoutAlign="end center" style="padding: 0px 10px">
+    <button
+      mat-icon-button
+      (click)="onSideNavSizeToggle()"
+      [matTooltip]="collapse === true ? 'Hide' : 'Show'"
+      (click)="collapse = !collapse"
+    >
+      <mat-icon *ngIf="vm.isSideNavExpanded">arrow_left</mat-icon>
+      <mat-icon *ngIf="!vm.isSideNavExpanded">arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
